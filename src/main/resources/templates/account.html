@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<title>Account</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="Free HTML Templates" name="keywords">
+<meta content="Free HTML Templates" name="description">
+
+<!-- Favicon -->
+<link href="public/img/favicon.ico" rel="icon">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+	rel="stylesheet">
+
+<!-- Font Awesome -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="public/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link
+	href="public/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+	rel="stylesheet" />
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="public/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="container-fluid py-5">
+		<div id="help-block" class="text-center" style="color: green;" th:if="${message != null}" th:text="${message}"></div>
+		<div class="container py-5">
+			<div class="text-center mb-3 pb-3">
+				<h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Tài
+					khoản</h6>
+				<h1>Thông tin tài khoản</h1>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="contact-form bg-white" style="padding: 30px;">
+						<div class="d-flex align-items-center justify-content-center py-4">
+							<a class="btn btn-primary py-3 px-4 "  href="/"
+									id="">Trang chủ</a>
+						</div>
+						<form name="sentMessage"  method="post" action="/updateAccount"
+							id="contactForm" novalidate="novalidate">
+							<div class="form-row">
+								<div class="control-group col-sm-6">
+									<input type="text" class="form-control p-4" id="username"
+										disabled="disabled" name="username" th:value="${user.username}"
+										placeholder="Tên người dùng" required="required"
+										data-validation-required-message="Vui lòng nhập tên người dùng" />
+									<p class="help-block text-danger"></p>
+								</div>
+								<div class="control-group col-sm-6">
+									<input type="text" class="form-control p-4" name="ho_ten" id="email" placeholder="Họ tên"
+										required="required" th:value="${user.ho_ten}"
+										data-validation-required-message="Vui lòng nhập họ và tên"
+										disabled="disabled" />
+									<p class="help-block text-danger"></p>
+								</div>
+							</div>
+							<div class="control-group">
+								<input type="email" class="form-control p-4" name="email"
+									id="subjectd" placeholder="Email" required="required"
+									disabled="disabled" th:value="${user.email}"
+									data-validation-required-message="Vui lòng nhập email" />
+								<p class="help-block text-danger"></p>
+							</div>
+							<div class="form-row">
+								<div class="control-group col-sm-6">
+									<input type="tel" class="form-control p-4" id="name" name="sdt"
+										placeholder="Số điện thoại" required="required"
+										disabled="disabled" th:value="${user.sdt}"
+										data-validation-required-message="Vui lòng nhập số điện thoại" />
+									<p class="help-block text-danger"></p>
+								</div>
+								<div class="control-group col-sm-6">
+									<div class="mb-3 mb-md-0">
+										<select class="custom-select px-4" id="select-gender" disabled="disabled"
+											name="gioi_tinh" th:value="${user.gioi_tinh}" style="height: 47px;">
+											<option value="Nam">Nam</option>
+											<option value="Nữ">Nữ</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<input type="text" class="form-control p-4" name="dia_chi"
+									id="subject" placeholder="Địa chỉ" required="required"
+									disabled="disabled" th:value="${user.dia_chi}"
+									data-validation-required-message="Vui lòng nhập địa chỉ" />
+								<p class="help-block text-danger"></p>
+							</div>
+							<div class="text-center">
+								<button class="btn btn-primary py-3 px-4"
+									id="sendMessageButton">Cập nhật thông tin tài khoản</button>
+							</div>
+							<div class="control-group d-flex justify-content-between">
+								<a href="/changepassword" class="pt-4 d-block">Đổi mật khẩu</a>
+								<a href="/logout" onclick="return confirm('Bạn có chắc chắn đăng xuất');" class="text-danger pt-4 d-block">Đăng xuất</a>
+							</div>
+						</form>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Contact End -->
+
+	<!-- Back to Top -->
+	<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+		class="fa fa-angle-double-up"></i></a>
+
+
+	<!-- JavaScript Libraries -->
+	<script src="/public/js/boostrap-bundle.min.js"></script>
+	<script src="/public/js/jquery.js"></script>
+	<script src="public/lib/easing/easing.min.js"></script>
+	<script src="public/lib/owlcarousel/owl.carousel.min.js"></script>
+	<script src="public/lib/tempusdominus/js/moment.min.js"></script>
+	<script src="public/lib/tempusdominus/js/moment-timezone.min.js"></script>
+	<script
+		src="public/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+	<!-- Contact Javascript File -->
+	<script src="public/mail/jqBootstrapValidation.min.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="public/js/main.js"></script>
+	<script type="text/javascript">
+		document.getElementById("sendMessageButton").onclick = function (e) {
+			e.preventDefault();
+			if(document.getElementById("username").disabled) {
+				document.getElementById("select-gender").removeAttribute("disabled");
+				var inputs = document.querySelectorAll("input");
+				for (var i = 0; i < inputs.length; i++) {
+					inputs[i].removeAttribute("disabled");
+				}
+			}else {
+				document.getElementById("contactForm").submit();
+			}
+		};
+	</script>
+</body>
+
+</html>

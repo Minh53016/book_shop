@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Categories</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-5">Manage Categories</h1>
+
+    <!-- Display success message if any -->
+    <div th:if="${successMessage}" class="alert alert-success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <!-- Form for adding a new category -->
+    <form th:object="${category}" th:action="@{/saveCategory}" method="post" class="mb-4">
+        <div class="form-group">
+            <label for="categoryName">Category Name:</label>
+            <input type="text" id="categoryName" name="name" th:field="*{name}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Category</button>
+    </form>
+
+    <!-- List of existing categories -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.id}"></td>
+            <td th:text="${category.name}"></td>
+            <td class="btn-group">
+                <!-- Form for updating a category -->
+                <form th:object="${category}" th:action="@{/updateCategory/{categoryId}(categoryId=${category.id})}" method="post" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="name" th:field="*{name}" class="form-control" style="display: none;">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="toggleUpdateInput(this)">Update</button>
+                    <button type="submit" class="btn btn-primary" style="display: none;">Confirm</button>
+                </form>
+
+                <!-- Form for deleting a category -->
+                <form th:action="@{/deleteCategory/{categoryId}(categoryId=${category.id})}" method="post" class="form-inline">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Bootstrap JS and jQuery scripts for Bootstrap components -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function toggleUpdateInput(button) {
+        var form = button.parentElement;
+        var input = form.querySelector("input[type='text']");
+        var confirmButton = form.querySelector("button[type='submit']");
+
+        if (input.style.display === "none") {
+            input.style.display = "block";
+            confirmButton.style.display = "block";
+            button.innerText = "Cancel";
+        } else {
+            input.style.display = "none";
+            confirmButton.style.display = "none";
+            button.innerText = "Update";
+        }
+    }
+</script>
+</body>
+</html>
