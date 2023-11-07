@@ -14,12 +14,18 @@ public class PaymentController {
 
     @PostMapping("/payNow")
     public String processPayment(Model model) {
+        if (GlobalData.cart.isEmpty()) {
+            return "paymentFailed";
+        }
         double totalAmount = GlobalData.cart.stream().mapToDouble(product -> product.getPrice().doubleValue()).sum();
         boolean paymentSuccessful = paymentService.processPayment(totalAmount);
 
         if (paymentSuccessful) {
             model.addAttribute("paymentSuccessMessage", "Payment was successful!");
+            return "paymentSuccess";
+        } else {
+            model.addAttribute("paymentFailureMessage", "Payment failed!");
+            return "paymentFailed";
         }
-        return "paymentSuccess";
     }
 }
