@@ -1,6 +1,5 @@
 package com.example.projectbookshop.controller;
 
-
 import com.example.projectbookshop.global.GlobalData;
 import com.example.projectbookshop.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;

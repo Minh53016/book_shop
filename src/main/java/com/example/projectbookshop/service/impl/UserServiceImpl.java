@@ -94,9 +94,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean login(LoginDTO user) {
-
         User userCheck = this.findUserByUsername(user.getUsername());
-
         if(userCheck==null) {
             return false;
         }
@@ -104,7 +102,6 @@ public class UserServiceImpl implements UserService {
         if(BCrypt.checkpw(user.getPassword(), userCheck.getPassword())) {
             SessionUtilities.setUsername(userCheck.getUsername());
             SessionUtilities.setUser(ConvertUserToDto.convertUsertoDto(userCheck));
-
             log.info("userCheck:{}",SessionUtilities.getUsername());
             return true;
         }
@@ -129,8 +126,6 @@ public class UserServiceImpl implements UserService {
         user.setRole(1);
         user.setDia_chi(newUser.getDia_chi());
         user.setSdt(newUser.getSdt());
-
-
         return this.saveUser(user);
     }
 
@@ -168,9 +163,7 @@ public class UserServiceImpl implements UserService {
             user.setDia_chi(updateUserDTO.getDia_chi());
             user.setHo_ten(updateUserDTO.getHo_ten());
             user.setGioi_tinh(updateUserDTO.getGioi_tinh());
-
             this.userRepository.save(user);
-
             return true;
         }
 
